@@ -49,8 +49,7 @@
             <version>1.16</version>
         </dependency>
 
-        <!-- Test -->
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+        <!-- JUnit4 Test -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>

@@ -39,12 +39,12 @@ public class QnaDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         QnaDto qnaDto = (QnaDto) o;
-        return view_cnt == qnaDto.view_cnt && comment_cnt == qnaDto.comment_cnt && Objects.equals(bno, qnaDto.bno) && Objects.equals(title, qnaDto.title) && Objects.equals(content, qnaDto.content) && Objects.equals(nickname, qnaDto.nickname) && Objects.equals(reg_date, qnaDto.reg_date) && Objects.equals(up_date, qnaDto.up_date);
+        return Objects.equals(bno, qnaDto.bno) && Objects.equals(title, qnaDto.title) && Objects.equals(content, qnaDto.content) && Objects.equals(nickname, qnaDto.nickname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bno, title, content, nickname, view_cnt, comment_cnt, reg_date, up_date);
+        return Objects.hash(bno, title, content, nickname);
     }
 
     public Integer getBno() {
