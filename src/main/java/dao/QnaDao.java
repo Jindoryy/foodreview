@@ -3,6 +3,7 @@ package dao;
 import domain.QnaDto;
 
 import java.util.List;
+import java.util.Map;
 
 public interface QnaDao {
     // 게시물 번호를 주면 게시물 내용 불러오기
@@ -13,6 +14,9 @@ public interface QnaDao {
 
     // 게시판 목록 보여주기
     List<QnaDto> selectAll() throws Exception;
+
+    // 페이징 처리
+    List<QnaDto> selectPage(Map map) throws Exception;
 
     // 게시물 정보를 주면 게시글을 등록해주기
     int insert(QnaDto dto) throws Exception;

@@ -32,7 +32,7 @@ public class PageHandlerTest {
 
     @Test
     public void test4() {
-        PageHandler pageHandler = new PageHandler(255, 14);
+        PageHandler pageHandler = new PageHandler(255, 10);
         pageHandler.print();
         assertTrue(pageHandler.getBeginPage() == 11);
         assertTrue(pageHandler.getEndPage() == 20);

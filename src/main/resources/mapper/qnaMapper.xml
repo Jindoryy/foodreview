@@ -24,6 +24,14 @@
         order by reg_date desc, bno desc
     </select>
 
+    <!-- 페이징 쿼리문 -->
+    <select id="selectPage" parameterType="map" resultType="QnaDto">
+        select bno, title, content, nickname, view_cnt, comment_cnt, reg_date, up_date
+        from qna_posts
+        order by reg_date desc, bno desc
+        limit #{offset}, #{pageSize}
+    </select>
+
     <!-- 게시물 정보를 주면 게시글을 등록해주는 쿼리문 -->
     <insert id="insert" parameterType="QnaDto">
         insert into qna_posts
@@ -57,4 +65,5 @@
     <delete id="deleteAll">
         delete from qna_posts
     </delete>
+
 </mapper>

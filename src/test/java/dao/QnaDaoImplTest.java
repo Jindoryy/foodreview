@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -143,20 +145,50 @@ public class QnaDaoImplTest {
 
         // 1. 기존에 있는 게시물들을 전부 삭제 후 개수가 0개 인지 확인.
         qnaDao.deleteAll();
-        assertTrue(qnaDao.count()==0);
+        assertTrue(qnaDao.count() == 0);
 
         // 2. 게시물을 집어넣고 조회수 증가 후 숫자 확인.
         QnaDto qnaDto = new QnaDto("title", "content", "jinkyu");
-        assertTrue(qnaDao.insert(qnaDto)==1);
+        assertTrue(qnaDao.insert(qnaDto) == 1);
         Integer bno = qnaDao.selectAll().get(0).getBno();
         System.out.println("bno = " + bno);
-        assertTrue(qnaDao.increaseViewCnt(bno)==1);
-        assertTrue(qnaDao.increaseViewCnt(bno)==1);
-        assertTrue(qnaDao.increaseViewCnt(bno)==1);
+        assertTrue(qnaDao.increaseViewCnt(bno) == 1);
+        assertTrue(qnaDao.increaseViewCnt(bno) == 1);
+        assertTrue(qnaDao.increaseViewCnt(bno) == 1);
 
         QnaDto qnaDto2 = qnaDao.select(bno);
-        System.out.println("qnaDto2 = " + qnaDto2);
-        assertTrue(qnaDto2.getView_cnt()==3);
+        assertTrue(qnaDto2.getView_cnt() == 3);
+    }
 
+    @Test
+    public void selectPageTest() throws Exception {
+
+        // 1. 게시물을 집어넣고 offset과 pageSize 값을 주어 페이지를 정확히 가지고 오는지 확인.
+        qnaDao.deleteAll();
+
+        for (int i = 1; i <= 10; i++) {
+            QnaDto qnaDto = new QnaDto("title"+i, "content"+i, "jinkyu"+i);
+            qnaDao.insert(qnaDto);
+        }
+
+        Map map = new HashMap();
+        map.put("offset", 0);
+        map.put("pageSize", 3);
+
+        List<QnaDto> list = qnaDao.selectPage(map);
+        System.out.println("list = " + list);
+        assertTrue(list.get(0).getTitle().equals("title10"));
+        assertTrue(list.get(1).getTitle().equals("title9"));
+        assertTrue(list.get(2).getTitle().equals("title8"));
+    }
+
+    // 게시물 데이터 넣기위한 Test
+    @Test
+    public void insertTestData() throws Exception {
+        qnaDao.deleteAll();
+        for (int i = 1; i <= 220; i++) {
+            QnaDto qnaDto = new QnaDto("title"+i, "content"+i,"jinkyu"+i);
+            qnaDao.insert(qnaDto);
+        }
     }
 }

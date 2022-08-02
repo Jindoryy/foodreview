@@ -34,6 +34,12 @@ public class QnaDaoImpl implements QnaDao {
         return session.selectList(namespace+"selectAll");
     }
 
+    // 페이징 처리
+    @Override
+    public List<QnaDto> selectPage(Map map) throws Exception {
+        return session.selectList(namespace+"selectPage", map);
+    }
+
     // 게시물 정보를 주면 게시글을 등록해주기
     @Override
     public int insert(QnaDto dto) throws Exception {
