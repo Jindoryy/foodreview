@@ -21,7 +21,15 @@
     </ul>
 </div>
 
+<script>
+    let msg = "${msg}"
+    if (msg=="write_yes") alert("등록 성공했습니다.")
+    if (msg=="remove_yes") alert("삭제 성공했습니다.")
+    if (msg=="remove_no") alert("삭제 실패했습니다.")
+</script>
+
 <div style="text-align:center">
+    <button type="button" id="writeBtn" onclick="location.href='<c:url value="/qna/write"/>'">글쓰기</button>
     <table border = "1">
         <tr>
             <th>번호</th>

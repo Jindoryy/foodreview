@@ -46,7 +46,7 @@
         set title = #{title}
             , content = #{content}
             , up_date = now()
-        where bno = #{bno}
+        where bno = #{bno} and nickname = #{nickname}
     </update>
 
     <!-- 조회수 올려주는 쿼리문 -->
