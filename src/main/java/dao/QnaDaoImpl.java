@@ -1,6 +1,7 @@
 package dao;
 
 import domain.QnaDto;
+import domain.SearchCondition;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -71,5 +72,17 @@ public class QnaDaoImpl implements QnaDao {
     @Override
     public int deleteAll() {
         return session.delete(namespace+"deleteAll");
+    }
+
+    // 검색 페이지 불러오기
+    @Override
+    public List<QnaDto> searchSelectPage(SearchCondition sc) throws Exception {
+        return session.selectList(namespace+"searchSelectPage", sc);
+    }
+
+    // 검색 게시물 개수 불러오기
+    @Override
+    public int searchResultCnt(SearchCondition sc) throws Exception {
+        return session.selectOne(namespace+"searchResultCnt", sc);
     }
 }

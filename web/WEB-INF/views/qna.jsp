@@ -25,6 +25,7 @@
 <script>
     let msg ="${msg}"
     if (msg == "write_no") alert("등록 실패했습니다.")
+    if (msg == "modify_no") alert("수정 실패했습니다.")
 </script>
 
 <div style="...">
@@ -54,7 +55,8 @@
             if (isReadOnly=='readonly') {
                 $("input[name=title]").attr('readonly', false); // 제목
                 $("textarea").attr('readonly', false); // 내용
-                $("#modifyBtn").html("등록");
+                $("#modifyBtn").html("수정 등록");
+                $("#writeBtn").hide();
                 $("h2").html("게시물 수정");
                 return;
             }

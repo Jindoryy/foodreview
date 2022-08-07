@@ -66,4 +66,21 @@
         delete from qna_posts
     </delete>
 
+    <!-- 검색 페이지 불러오는 쿼리문 -->
+    <select id="searchSelectPage" parameterType="SearchCondition" resultType="QnaDto">
+        select bno, title, content, nickname, view_cnt, comment_cnt, reg_date, up_date
+        from qna_posts
+        where true
+        and title like concat('%', #{keyword}, '%')
+        order by reg_date desc, bno desc
+            limit #{offset}, #{pageSize}
+    </select>
+
+    <!-- 검색 페이지 개수 불러오는 쿼리문 -->
+    <select id="searchResultCnt" parameterType="SearchCondition" resultType="int">
+        select count(*)
+        from qna_posts
+        where true
+          and title like concat('%', #{keyword}, '%')
+    </select>
 </mapper>

@@ -1,6 +1,7 @@
 package dao;
 
 import domain.QnaDto;
+import domain.SearchCondition;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -190,5 +191,36 @@ public class QnaDaoImplTest {
             QnaDto qnaDto = new QnaDto("title"+i, "content"+i,"jinkyu"+i);
             qnaDao.insert(qnaDto);
         }
+    }
+
+    // 검색 게시물 불러오는 Test
+    @Test
+    public void searchSelectPageTest() throws Exception {
+
+        // 게시물을 다 지우고 검색조건(여기서는 title2% = title2, title20)에 맞는 게시물을 불러오는지 확인.
+        qnaDao.deleteAll();
+        for (int i = 1; i <= 20; i++) {
+            QnaDto qnaDto = new QnaDto("title"+i, "content"+i, "jinkyu"+i);
+            qnaDao.insert(qnaDto);
+        }
+        SearchCondition sc = new SearchCondition(1, 10, "title2", "T");
+        List<QnaDto> list = qnaDao.searchSelectPage(sc);
+        System.out.println("list = " + list);
+        assertTrue(list.size()==2);
+    }
+
+    // 검색 게시물 개수 불러오는 Test
+    @Test
+    public void searchResultCntTest() throws Exception {
+
+        // 게시물을 다 지우고 검색조건(여기서는 title2% = title2, title20)에 맞는 게시물을 불러오는지 확인.
+        qnaDao.deleteAll();
+        for (int i = 1; i <= 20; i++) {
+            QnaDto qnaDto = new QnaDto("title"+i, "content"+i, "jinkyu"+i);
+            qnaDao.insert(qnaDto);
+        }
+        SearchCondition sc = new SearchCondition(1, 10, "title2", "T");
+        int qnaCnt = qnaDao.searchResultCnt(sc);
+        assertTrue(qnaCnt == 2);
     }
 }

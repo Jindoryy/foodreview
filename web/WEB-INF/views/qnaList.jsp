@@ -26,6 +26,7 @@
     if (msg=="write_yes") alert("등록 성공했습니다.")
     if (msg=="remove_yes") alert("삭제 성공했습니다.")
     if (msg=="remove_no") alert("삭제 실패했습니다.")
+    if (msg=="modify_yes") alert("수정 성공했습니다.")
 </script>
 
 <div style="text-align:center">

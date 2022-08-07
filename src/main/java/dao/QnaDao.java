@@ -1,6 +1,7 @@
 package dao;
 
 import domain.QnaDto;
+import domain.SearchCondition;
 
 import java.util.List;
 import java.util.Map;
@@ -32,4 +33,10 @@ public interface QnaDao {
 
     // 게시물 목록 전체 내용 삭제하기
     int deleteAll();
+
+    // 검색 페이지 불러오기
+    List<QnaDto> searchSelectPage(SearchCondition sc) throws Exception;
+
+    // 검색 게시물 개수 불러오기
+    int searchResultCnt(SearchCondition sc) throws Exception;
 }
