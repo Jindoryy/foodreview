@@ -1,6 +1,7 @@
 package service;
 
 import domain.QnaDto;
+import domain.SearchCondition;
 
 import java.util.List;
 import java.util.Map;
@@ -20,5 +21,7 @@ public interface QnaService {
 
     List<QnaDto> getPage(Map map) throws Exception;
 
+    List<QnaDto> getSearchResultPage(SearchCondition sc) throws Exception;
 
+    int getSearchResultCnt(SearchCondition sc) throws Exception;
 }

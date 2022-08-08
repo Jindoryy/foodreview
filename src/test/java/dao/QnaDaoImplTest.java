@@ -197,14 +197,22 @@ public class QnaDaoImplTest {
     @Test
     public void searchSelectPageTest() throws Exception {
 
-        // 게시물을 다 지우고 검색조건(여기서는 title2% = title2, title20)에 맞는 게시물을 불러오는지 확인.
+        // 게시물을 다 지우기
         qnaDao.deleteAll();
         for (int i = 1; i <= 20; i++) {
             QnaDto qnaDto = new QnaDto("title"+i, "content"+i, "jinkyu"+i);
             qnaDao.insert(qnaDto);
         }
+
+        // 제목 검색조건(여기서는 %title2% = title2, title20)에 맞는 게시물을 불러오는지 확인.
         SearchCondition sc = new SearchCondition(1, 10, "title2", "T");
         List<QnaDto> list = qnaDao.searchSelectPage(sc);
+        System.out.println("list = " + list);
+        assertTrue(list.size()==2);
+
+        // 작성자 검색조건(여기서는 %jinkyu2% = jinkyu2, jinkyu20)에 맞는 게시물을 불러오는지 확인.
+        sc = new SearchCondition(1, 10, "jinkyu2", "W");
+        list = qnaDao.searchSelectPage(sc);
         System.out.println("list = " + list);
         assertTrue(list.size()==2);
     }
@@ -213,14 +221,20 @@ public class QnaDaoImplTest {
     @Test
     public void searchResultCntTest() throws Exception {
 
-        // 게시물을 다 지우고 검색조건(여기서는 title2% = title2, title20)에 맞는 게시물을 불러오는지 확인.
+        // 게시물을 다 지우기
         qnaDao.deleteAll();
         for (int i = 1; i <= 20; i++) {
             QnaDto qnaDto = new QnaDto("title"+i, "content"+i, "jinkyu"+i);
             qnaDao.insert(qnaDto);
         }
+        // 제목 검색조건(여기서는 %title2% = title2, title20)에 맞는 게시물 개수를 정확히 불러오는지 확인.
         SearchCondition sc = new SearchCondition(1, 10, "title2", "T");
         int qnaCnt = qnaDao.searchResultCnt(sc);
         assertTrue(qnaCnt == 2);
+
+        // 작성자 검색조건(여기서는 %jinkyu2% = jinkyu2, jinkyu20)에 맞는 게시물 개수를 정확히 불러오는지 확인.
+        sc = new SearchCondition(1, 10, "jinkyu2", "W");
+        qnaCnt = qnaDao.searchResultCnt(sc);
+        assertTrue(qnaCnt==2);
     }
 }

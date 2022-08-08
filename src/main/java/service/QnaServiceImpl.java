@@ -2,6 +2,7 @@ package service;
 
 import dao.QnaDao;
 import domain.QnaDto;
+import domain.SearchCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,5 +50,15 @@ public class QnaServiceImpl implements QnaService {
     @Override
     public int modify(QnaDto qnaDto) throws Exception {
         return qnaDao.update(qnaDto);
+    }
+
+    @Override
+    public List<QnaDto> getSearchResultPage(SearchCondition sc) throws Exception {
+        return qnaDao.searchSelectPage(sc);
+    }
+
+    @Override
+    public int getSearchResultCnt(SearchCondition sc) throws Exception {
+        return qnaDao.searchResultCnt(sc);
     }
 }

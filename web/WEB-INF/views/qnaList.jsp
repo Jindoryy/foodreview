@@ -29,8 +29,22 @@
     if (msg=="modify_yes") alert("수정 성공했습니다.")
 </script>
 
+<div class="search-container">
+    <form action="<c:url value="/qna/list"/>" class="search-form" method="get">
+        <select class="search-option" name="option">
+            <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>제목+내용</option>
+            <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>제목만</option>
+            <option value="W" ${ph.sc.option=='W' ? "selected" : ""}>작성자</option>
+        </select>
+
+        <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">
+        <input type="submit" class="search-button" value="검색">
+
+        <button id="writeBtn" class="btn-write" onclick="location.href='<c:url value="/qna/write"/>'">글쓰기</button>
+    </form>
+</div>
+
 <div style="text-align:center">
-    <button type="button" id="writeBtn" onclick="location.href='<c:url value="/qna/write"/>'">글쓰기</button>
     <table border = "1">
         <tr>
             <th>번호</th>
@@ -43,7 +57,7 @@
         <c:forEach var="qnaDto" items="${list}">
         <tr>
             <td>${qnaDto.bno}</td>
-            <td><a href="<c:url value='/qna/read?bno=${qnaDto.bno}&page=${page}&pageSize=${pageSize}'/>">${qnaDto.title}</a></td>
+            <td><a href="<c:url value='/qna/read${ph.sc.queryString}&bno=${qnaDto.bno}'/>"><c:out value='${qnaDto.title}'/></a></td>
             <td>${qnaDto.nickname}</td>
             <td>${qnaDto.reg_date}</td>
             <td>${qnaDto.view_cnt}</td>
@@ -54,13 +68,13 @@
     <br>
     <div>
         <c:if test="${ph.showPrev}">
-            <a href="<c:url value='/qna/list?page=${ph.beginPage-1}&pageSize=${ph.pageSize}'/>">&lt;</a>
+            <a href="<c:url value='/qna/list${ph.sc.getQueryString(ph.beginPage-1)}'/>">&lt;</a>
         </c:if>
         <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-            <a href="<c:url value='/qna/list?page=${i}&pageSize=${ph.pageSize}'/>">${i}</a>
+            <a href="<c:url value='/qna/list${ph.sc.getQueryString(i)}'/>">${i}</a>
         </c:forEach>
         <c:if test="${ph.showNext}">
-            <a href="<c:url value='/qna/list?page=${ph.endPage+1}&pageSize=${ph.pageSize}'/>">&gt;</a>
+            <a href="<c:url value='/qna/list${ph.sc.getQueryString(ph.endPage+1)}'/>">&gt;</a>
         </c:if>
     </div>
 </div>

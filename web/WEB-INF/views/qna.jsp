@@ -32,8 +32,8 @@
     <h2>게시물 ${mode=="new" ? "쓰기" : "읽기"}</h2>
     <form action="" id="form">
         <input type="hidden" name="bno" value="${qnaDto.bno}" readonly="readonly">
-        <input type="text" name="title" value="${qnaDto.title}" ${mode == "new" ? '' : 'readonly="readonly"'}>
-        <textarea name="content" id="" cols="30" rows="10" ${mode == "new" ? '' : 'readonly="readonly"'}>${qnaDto.content}</textarea>
+        <input type="text" name="title" value="<c:out value='${qnaDto.title}'/>" ${mode == "new" ? '' : 'readonly="readonly"'}>
+        <textarea name="content" id="" cols="30" rows="10" ${mode == "new" ? '' : 'readonly="readonly"'}><c:out value='${qnaDto.content}'/></textarea>
         <button type="button" id="writeBtn" class="btn">글쓰기</button>
         <button type="button" id="modifyBtn" class="btn">수정</button>
         <button type="button" id="removeBtn" class="btn">삭제</button>
@@ -62,7 +62,7 @@
             }
 
             // 2. 게시물이 수정 상태이면 수정된 내용을 서버로 전송
-            form.attr("action", "<c:url value='/qna/modify'/>");
+            form.attr("action", "<c:url value='/qna/modify${SearchCondition.queryString}'/>");
             form.attr("method", "post");
             form.submit();
         });

@@ -2,6 +2,7 @@ package controller;
 
 import domain.PageHandler;
 import domain.QnaDto;
+import domain.SearchCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.jdbc.support.incrementer.HsqlMaxValueIncrementer;
@@ -117,24 +118,16 @@ public class QnaController {
 
     // 게시물 목록 가져오기
     @GetMapping("list")
-    public String list(Integer page, Integer pageSize, Model m, HttpServletRequest request) {
-
-        // offset과 pageSize를 넘겨주어 페이징 처리를 함.
-        if (page == null) page = 1;
-        if (pageSize == null) pageSize = 10;
+    public String list(SearchCondition sc, Model m, HttpServletRequest request) {
 
         try {
             int totalCnt = qnaService.getCount();
-            PageHandler pageHandler = new PageHandler(totalCnt, page, pageSize);
-            Map map = new HashMap();
-            map.put("offset", (page-1)*pageSize);
-            map.put("pageSize", pageSize);
+            PageHandler pageHandler = new PageHandler(totalCnt, sc);
 
-            List<QnaDto> list = qnaService.getPage(map);
+            List<QnaDto> list = qnaService.getSearchResultPage(sc);
             m.addAttribute("list", list);
             m.addAttribute("ph", pageHandler);
-            m.addAttribute("page", page);
-            m.addAttribute("pageSize", pageSize);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

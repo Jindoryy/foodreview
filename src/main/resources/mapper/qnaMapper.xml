@@ -71,16 +71,30 @@
         select bno, title, content, nickname, view_cnt, comment_cnt, reg_date, up_date
         from qna_posts
         where true
-        and title like concat('%', #{keyword}, '%')
+            <include refid="searchCondition"/>
         order by reg_date desc, bno desc
             limit #{offset}, #{pageSize}
     </select>
 
+    <sql id = "searchCondition">
+        <choose>
+            <when test='option == "T"'>
+                and title like concat('%', #{keyword}, '%')
+            </when>
+            <when test='option == "W"'>
+                and nickname like concat('%', #{keyword}, '%')
+            </when>
+            <otherwise>
+                and (title like concat('%', #{keyword}, '%')
+                or content like concat('%', #{keyword}, '%'))
+            </otherwise>
+        </choose>
+    </sql>
     <!-- 검색 페이지 개수 불러오는 쿼리문 -->
     <select id="searchResultCnt" parameterType="SearchCondition" resultType="int">
         select count(*)
         from qna_posts
         where true
-          and title like concat('%', #{keyword}, '%')
+            <include refid="searchCondition"/>
     </select>
 </mapper>
