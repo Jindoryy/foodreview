@@ -39,4 +39,7 @@ public interface QnaDao {
 
     // 검색 게시물 개수 불러오기
     int searchResultCnt(SearchCondition sc) throws Exception;
+
+    // 댓글이 달리거나 지워지면 댓글 개수를 바꿔주는 함수
+    int updateCommentCnt(Integer bno, int cnt);
 }

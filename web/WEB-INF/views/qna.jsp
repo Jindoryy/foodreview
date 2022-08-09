@@ -62,7 +62,7 @@
             }
 
             // 2. 게시물이 수정 상태이면 수정된 내용을 서버로 전송
-            form.attr("action", "<c:url value='/qna/modify${SearchCondition.queryString}'/>");
+            form.attr("action", "<c:url value='/qna/modify${ph.sc.queryString}'/>");
             form.attr("method", "post");
             form.submit();
         });

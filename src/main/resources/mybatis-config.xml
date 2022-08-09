@@ -6,6 +6,7 @@
 <configuration>
     <typeAliases>
         <typeAlias alias="QnaDto" type="domain.QnaDto"/>
+        <typeAlias alias="CommentDto" type="domain.CommentDto"/>
         <typeAlias alias="SearchCondition" type="domain.SearchCondition"/>
     </typeAliases>
 </configuration>
