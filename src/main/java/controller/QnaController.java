@@ -26,7 +26,7 @@ public class QnaController {
 
     @Autowired
     QnaService qnaService;
-
+    
     // 지정된 게시물 수정
     @PostMapping("/modify")
     public String modify(QnaDto qnaDto, HttpSession session, Model m, RedirectAttributes rattr) {
