@@ -10,6 +10,10 @@ comment: <input type="text" name="comment"><br>
 <button id="sendBtn" type="button">SEND</button>
 <button id="modBtn" type="button">수정</button>
 <div id="commentList"></div>
+<div id="replyForm" style="display: none">
+    <input type="text" name="replyComment">
+    <button id="wrtRepBtn" type="button">등록</button>
+</div>
 <script>
 
     let bno = 870;
@@ -32,11 +36,14 @@ comment: <input type="text" name="comment"><br>
             tmp += '<li data-cno='+ comment.cno
             tmp += ' data-pcno=' + comment.pcno
             tmp += ' data-bno=' + comment.bno + '>'
+            if (comment.cno != comment.pcno) // 답글인 경우
+                tmp += 'ㄴ'
             tmp += ' commenter=<span class="commenter">' + comment.commenter + '</span>' // 불러오기 쉽게 span으로 감쌈
             tmp += ' comment=<span class="comment">' + comment.comment + '</span>'
             tmp += ' up_date='+comment.up_date
             tmp += '<button class="delBtn">삭제</button>'
             tmp += '<button class="modBtn">수정</button>'
+            tmp += '<button class="replyBtn">답글</button>'
             tmp += '</li>'
         })
 
@@ -68,6 +75,41 @@ comment: <input type="text" name="comment"><br>
                 error   : function(){ alert("error") } // 에러가 발생했을 때, 호출될 함수
             });
 
+        });
+
+        // 답글 폼을 댓글 밑의 위치로 옮기기
+        $("#commentList").on("click", ".replyBtn", function() {
+            // 위의 답글 폼을 해당 댓글위치 밑으로 옮기기
+            $("#replyForm").appendTo($(this).parent()); // 답글 폼의 부모(li태그)에 붙이기
+            // 답글 입력할 폼 보여주기
+            $("#replyForm").css("display", "block");
+        });
+
+        // 답글 등록 전송
+        $("#wrtRepBtn").click(function(){
+            let comment = $("input[name=replyComment]").val();
+            let pcno = $("#replyForm").parent().attr("data-pcno"); // 답글의 부모(댓글)의 pcno를 불러오기
+
+            if (comment.trim()=='') {
+                alert("답글 입력해주세요");
+                $("input[name=replyComment]").focus()
+                return;
+            }
+
+            $.ajax({
+                type:'POST',       // 요청 메서드
+                url: '/comments?bno='+bno,  // 요청 URI
+                headers : { "content-type": "application/json"}, // 요청 헤더
+                data : JSON.stringify({pcno:pcno, bno:bno, comment:comment}),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
+                success : function(result){
+                    alert(result);
+                    showList(bno);
+                },
+                error   : function(){ alert("error") } // 에러가 발생했을 때, 호출될 함수
+            });
+            $("#replyForm").css("display", "none"); // 폼 다시 안보이게 만들기
+            $("input[name=replyComment]").val('') // 폼 내용 비우기
+            $("#replyForm").appendTo("body") // 원래 있던 자리로 되돌려 놓기
         });
 
         // 댓글 삭제 전송

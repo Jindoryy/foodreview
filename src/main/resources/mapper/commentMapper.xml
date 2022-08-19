@@ -31,10 +31,10 @@
 
     <!-- 댓글 목록을 불러오는 쿼리문 -->
     <select id="selectAll" parameterType="int" resultType="CommentDto">
-        SELECT cno, bno, pcno, comment, commenter, reg_date, up_date
+        SELECT cno, bno, ifnull(pcno, cno) as pcno, comment, commenter, reg_date, up_date
         FROM qna_comment
         WHERE bno = #{bno}
-        ORDER BY reg_date ASC, cno ASC
+        ORDER BY pcno ASC, cno ASC
     </select>
 
     <!-- 댓글을 불러오는 쿼리문 -->
