@@ -168,7 +168,7 @@ public class QnaDaoImplTest {
         qnaDao.deleteAll();
 
         for (int i = 1; i <= 10; i++) {
-            QnaDto qnaDto = new QnaDto("title"+i, "content"+i, "jinkyu"+i);
+            QnaDto qnaDto = new QnaDto("title"+i, "content"+i, "asdf");
             qnaDao.insert(qnaDto);
         }
 
@@ -188,7 +188,7 @@ public class QnaDaoImplTest {
     public void insertTestData() throws Exception {
         qnaDao.deleteAll();
         for (int i = 1; i <= 220; i++) {
-            QnaDto qnaDto = new QnaDto("title"+i, "content"+i,"jinkyu"+i);
+            QnaDto qnaDto = new QnaDto("title"+i, "content"+i,"asdf");
             qnaDao.insert(qnaDto);
         }
     }

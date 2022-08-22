@@ -63,6 +63,7 @@ public class LoginController {
         return "redirect:"+toURL;
     }
 
+    // 로그인 체크
     private boolean loginCheck(String id, String password) {
         AccountDto accountDto = null;
 

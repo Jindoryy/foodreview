@@ -24,7 +24,9 @@ public class PageHandler {
     public void doPaging(int totalCnt, SearchCondition sc) {
         this.totalCnt = totalCnt;
 
-        totalPage = (int)Math.ceil(totalCnt / (double)sc.getPageSize());
+        totalPage = totalCnt / sc.getPageSize() + (totalCnt % sc.getPageSize()==0 ? 0 : 1); // 나머지가 있으면 totalPage를 1개 더
+        this.sc.setPage(Math.min(sc.getPage(), totalPage));
+
         beginPage = (sc.getPage()-1) / naviSize * naviSize + 1;
         endPage = Math.min(beginPage + naviSize - 1, totalPage);
 

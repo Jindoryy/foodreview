@@ -1,5 +1,6 @@
 package controller;
 
+import domain.AccountDto;
 import domain.PageHandler;
 import domain.QnaDto;
 import domain.SearchCondition;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import service.AccountService;
 import service.QnaService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,11 +28,21 @@ public class QnaController {
 
     @Autowired
     QnaService qnaService;
-    
+
+    @Autowired
+    AccountService accountService;
+
     // 지정된 게시물 수정
     @PostMapping("/modify")
     public String modify(QnaDto qnaDto, HttpSession session, Model m, RedirectAttributes rattr) {
-        String nickname = "jindoryy";
+
+        String id = (String)session.getAttribute("id");
+        AccountDto accountDto = null;
+        try {
+            accountDto = accountService.loginCheck(id);
+        } catch (Exception e) {
+        }
+        String nickname = accountDto.getNickname();
         qnaDto.setNickname(nickname); // 글 수정한 사람 이름 등록
 
         try {
@@ -41,9 +53,9 @@ public class QnaController {
 
             rattr.addFlashAttribute("msg","modify_yes");
         } catch (Exception e) { // 만약 게시물 수정에 실패하면 작성해놓았던 내용을 다시 써야 하니깐 모델에 담아줌
-            m.addAttribute(qnaDto);
+//            m.addAttribute(qnaDto);
             m.addAttribute("msg", "modify_no");
-            return "qna";
+//            return "qna";
         }
 
         return "redirect:/qna/list";
@@ -52,7 +64,14 @@ public class QnaController {
     // 게시물 쓴 내용 등록
     @PostMapping("/write")
     public String write(QnaDto qnaDto, HttpSession session, Model m, RedirectAttributes rattr) {
-        String nickname = "jindoryy";
+
+        String id = (String)session.getAttribute("id");
+        AccountDto accountDto = null;
+        try {
+            accountDto = accountService.loginCheck(id);
+        } catch (Exception e) {
+        }
+        String nickname = accountDto.getNickname();
         qnaDto.setNickname(nickname); // 글 쓴사람 이름 등록
 
         try {
@@ -81,8 +100,13 @@ public class QnaController {
     // 지정된 게시물 삭제
     @PostMapping("/remove")
     public String remove(Integer bno, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
-//        String nickname = (String)session.getAttribute("id");
-        String nickname = "jinkyu56";
+        String id = (String)session.getAttribute("id");
+        AccountDto accountDto = null;
+        try {
+            accountDto = accountService.loginCheck(id);
+        } catch (Exception e) {
+        }
+        String nickname = accountDto.getNickname();
 
         m.addAttribute("page", page);
         m.addAttribute("pageSize", pageSize);
@@ -120,8 +144,11 @@ public class QnaController {
     @GetMapping("list")
     public String list(SearchCondition sc, Model m, HttpServletRequest request) {
 
+        if(!loginCheck(request))
+            return "redirect:/login?toURL="+request.getRequestURL();
+
         try {
-            int totalCnt = qnaService.getCount();
+            int totalCnt = qnaService.getSearchResultCnt(sc);
             PageHandler pageHandler = new PageHandler(totalCnt, sc);
 
             List<QnaDto> list = qnaService.getSearchResultPage(sc);
@@ -133,5 +160,11 @@ public class QnaController {
         }
 
         return "qnaList";
+    }
+
+    private boolean loginCheck(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        return session != null && session.getAttribute("id") != null;
     }
 }
