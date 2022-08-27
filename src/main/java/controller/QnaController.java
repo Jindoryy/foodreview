@@ -18,6 +18,9 @@ import service.QnaService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -149,12 +152,15 @@ public class QnaController {
 
         try {
             int totalCnt = qnaService.getSearchResultCnt(sc);
+            m.addAttribute("totalCnt", totalCnt);
             PageHandler pageHandler = new PageHandler(totalCnt, sc);
 
             List<QnaDto> list = qnaService.getSearchResultPage(sc);
             m.addAttribute("list", list);
             m.addAttribute("ph", pageHandler);
 
+            Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
+            m.addAttribute("startOfToday", startOfToday.toEpochMilli());
         } catch (Exception e) {
             e.printStackTrace();
         }

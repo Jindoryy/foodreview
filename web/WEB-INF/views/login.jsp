@@ -23,19 +23,19 @@
             top:50%;
             left:50%;
             transform: translate(-50%, -50%) ;
-            border: 1px solid rgb(89,117,196);
+            border: 1px solid black;
             border-radius: 10px;
         }
         input[type='text'], input[type='password'] {
             width: 300px;
             height: 40px;
-            border : 1px solid rgb(89,117,196);
+            border : 1px solid black;
             border-radius:5px;
             padding: 0 10px;
             margin-bottom: 10px;
         }
         button {
-            background-color: rgb(89,117,196);
+            background-color: black;
             color : white;
             width:300px;
             height:50px;

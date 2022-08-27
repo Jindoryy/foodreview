@@ -161,6 +161,7 @@ public class QnaDaoImplTest {
         assertTrue(qnaDto2.getView_cnt() == 3);
     }
 
+    // 페이지 불러오는 Test
     @Test
     public void selectPageTest() throws Exception {
 
