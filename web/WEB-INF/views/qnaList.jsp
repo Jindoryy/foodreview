@@ -25,8 +25,6 @@
             list-style-type: none;
             height: 48px;
             width: 100%;
-            background-color: #5F5F5F;
-            display: flex;
         }
 
         ul > li {
@@ -193,7 +191,7 @@
 </head>
 <body>
 <div>
-    <ul>
+    <ul style="background-color: #5F5F5F; display:flex;" >
         <li id="logo">REVIEW</li>
         <li><a href="<c:url value='/'/>">홈</a></li>
         <li><a href="<c:url value='/qna/list'/>">Q&A</a></li>

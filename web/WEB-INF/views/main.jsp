@@ -24,8 +24,6 @@
       list-style-type: none;
       height: 48px;
       width: 100%;
-      background-color: #5F5F5F;
-      display: flex;
     }
 
     ul > li {
@@ -56,12 +54,20 @@
       margin-right:auto;
       display: flex;
     }
+
+    body {
+      height: 100vh;
+      width: 100vw;
+      background-image: url(https://www.cthawards.com/wp-content/uploads/2019/10/you-can-now-be-sued-for-writing-a-negative-restaurant-review-article-img.jpg);
+      background-repeat : no-repeat;
+      background-size : cover;
+    }
   </style>
 </head>
 
 <body>
 <div id="menu">
-  <ul>
+  <ul style="background-color: #5F5F5F; display:flex;" >
     <li id="logo">REVIEW</li>
     <li><a href="<c:url value='/'/>">홈</a></li>
     <li><a href="<c:url value='/qna/list'/>">Q&A</a></li>

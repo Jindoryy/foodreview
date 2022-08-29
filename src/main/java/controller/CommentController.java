@@ -1,5 +1,6 @@
 package controller;
 
+import domain.AccountDto;
 import domain.CommentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -7,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
+import service.AccountService;
 import service.CommentService;
 
 import javax.servlet.http.HttpSession;
@@ -22,12 +24,20 @@ public class CommentController {
     @Autowired
     CommentService service;
 
+    @Autowired
+    AccountService accountService;
+
     // 해당 게시물에 댓글 수정하기
     @PatchMapping("/comments/{cno}")
     public ResponseEntity<String> modify(@PathVariable Integer cno, @RequestBody CommentDto dto, HttpSession session){
         // @RequestBody = json으로 온걸 자바 객체로 변환
-//        String commenter = (String) session.getAttribute("id"); // 여기 세션 필요하지 않나??
-        String commenter = "asdf";
+        String id = (String) session.getAttribute("id");
+        AccountDto accountDto = null;
+        try {
+            accountDto = accountService.loginCheck(id);
+        } catch (Exception e) {
+        }
+        String commenter = accountDto.getNickname();
         dto.setCommenter(commenter);
         dto.setCno(cno);
 
@@ -46,9 +56,15 @@ public class CommentController {
 
     // 해당 게시물에 댓글 저장하기
     @PostMapping("/comments")
-    public ResponseEntity<String> write(@RequestBody CommentDto dto, Integer bno){
+    public ResponseEntity<String> write(@RequestBody CommentDto dto, Integer bno, HttpSession session){
         // @RequestBody = json으로 온걸 자바 객체로 변환
-        String commenter = "asdf";
+        String id = (String) session.getAttribute("id");
+        AccountDto accountDto = null;
+        try {
+            accountDto = accountService.loginCheck(id);
+        } catch (Exception e) {
+        }
+        String commenter = accountDto.getNickname();
         dto.setCommenter(commenter);
         dto.setBno(bno);
 
@@ -68,8 +84,14 @@ public class CommentController {
     // 해당 게시물에 댓글 삭제하기
     @DeleteMapping("/comments/{cno}") // /comments/1?bno=숫자 <- 1은 삭제할 댓글 번호
     public ResponseEntity<String> remove(@PathVariable Integer cno, Integer bno, HttpSession session) {
-//        String commenter = (String) session.getAttribute("id");
-        String commenter = "asdf";
+
+        String id = (String) session.getAttribute("id");
+        AccountDto accountDto = null;
+        try {
+            accountDto = accountService.loginCheck(id);
+        } catch (Exception e) {
+        }
+        String commenter = accountDto.getNickname();
 
         try {
             int resCnt = service.remove(cno, bno, commenter);

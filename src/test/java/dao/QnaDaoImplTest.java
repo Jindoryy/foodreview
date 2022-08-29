@@ -189,7 +189,7 @@ public class QnaDaoImplTest {
     public void insertTestData() throws Exception {
         qnaDao.deleteAll();
         for (int i = 1; i <= 220; i++) {
-            QnaDto qnaDto = new QnaDto("title"+i, "content"+i,"asdf");
+            QnaDto qnaDto = new QnaDto("title"+i, "content"+i,"jinkyu");
             qnaDao.insert(qnaDto);
         }
     }

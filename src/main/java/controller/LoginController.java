@@ -3,6 +3,7 @@ package controller;
 import domain.AccountDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import service.AccountService;
@@ -33,7 +34,7 @@ public class LoginController {
     }
 
     @PostMapping("login")
-    public String login(String id, String password, String toURL, boolean rememberId,
+    public String login(String id, String password, Model m, String toURL, boolean rememberId,
                         HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         // 1. id, password 확인 -> 만약 일치하지 않으면 메시지와 함께 로그인 화면으로 이동
@@ -43,9 +44,18 @@ public class LoginController {
             return "redirect:/login?msg="+msg;
         }
 
-        // 2. id, password 일치 하는 경우 세션 생성
+        // 2. id, password 일치 하는 경우 세션 생성 및 jsp에서 사용하기 위해 세션에 닉네임 대입
         HttpSession session = request.getSession();
         session.setAttribute("id", id);
+
+        AccountDto accountDto = null;
+        try {
+            accountDto = accountService.loginCheck(id);
+        } catch (Exception e) {
+        }
+        String nickname = accountDto.getNickname();
+        session.setAttribute("nickname", nickname);
+
 
         // 2-1. 아이디 기억 체크한 경우 쿠키에 세션을 담아 보내기
         if (rememberId) {
