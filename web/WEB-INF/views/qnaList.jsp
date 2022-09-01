@@ -196,7 +196,7 @@
         <li><a href="<c:url value='/'/>">홈</a></li>
         <li><a href="<c:url value='/qna/list'/>">Q&A</a></li>
         <li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
-        <li><a href="<c:url value='/register/add'/>">회원가입</a></li>
+        <li><a href="<c:url value='/signup'/>">회원가입</a></li>
     </ul>
 </div>
 

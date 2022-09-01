@@ -16,4 +16,28 @@ public class AccountServiceImpl implements AccountService {
     public AccountDto loginCheck(String id) throws Exception {
         return accountDao.loginCheck(id);
     }
+
+    @Override
+    public void singup(AccountDto accountDTO) throws Exception {
+
+        System.out.println("accountDTO = " + accountDTO);
+        accountDao.signup(accountDTO);
+
+    }
+
+    @Override
+    public int idCheck(String accountID) throws Exception {
+
+        int cnt = accountDao.idCheck(accountID);
+
+        return cnt;
+    }
+
+    @Override
+    public int nicknameCheck(String accountNickname) throws Exception {
+
+        int cnt = accountDao.nicknameCheck(accountNickname);
+
+        return cnt;
+    }
 }

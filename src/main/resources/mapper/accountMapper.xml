@@ -11,4 +11,16 @@
         where id = #{id}
     </select>
 
+    <select id="CheckID" parameterType="String" resultType="int">
+        select count(*) from account where id=#{accountID}
+    </select>
+
+    <select id="CheckNickname" parameterType="String" resultType="int">
+        select count(*) from account where nickname=#{accountNickname}
+    </select>
+
+    <insert id="insertAccount" parameterType="AccountDto">
+        insert into account
+        values (#{id},#{password},#{email},#{nickname},now(),#{region})
+    </insert>
 </mapper>

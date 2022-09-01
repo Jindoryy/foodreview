@@ -12,6 +12,7 @@ public class AccountDto {
     private Date reg_date;
     private String region;
 
+
     public AccountDto() {}
     public AccountDto(String id, String password, String nickname) {
         this.id = id;
