@@ -185,8 +185,9 @@
     <button id="sendBtn" type="button" class="btn">댓글 작성</button>
     <button id="modBtn" type="button" class="btn">수정</button>
 </div>
+
 <script>
-    let bno = 1776;
+    let bno = 2000;
 
     let showList = function (bno) { // 댓글 목록을 가져오는 함수
         $.ajax({

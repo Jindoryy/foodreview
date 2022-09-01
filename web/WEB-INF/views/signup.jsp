@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -11,6 +12,49 @@
 
     <!-- 부트스트랩 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin : 0;
+            padding: 0;
+        }
+
+        a { text-decoration: none;  }
+
+        ul {
+            list-style-type: none;
+            height: 48px;
+            width: 100%;
+        }
+
+        ul > li {
+            height : 100%;
+            display:flex;
+            align-items: center;
+        }
+
+        ul > li > a {
+            color: lightgray;
+            margin:auto;
+            padding: 10px;
+            font-size:16px;
+            align-items: center;
+        }
+
+        ul > li > a:hover {
+            color :white;
+            border-bottom: 3px solid rgb(209, 209, 209);
+        }
+
+        #logo {
+            color:white;
+            font-size: 16px;
+            padding-left:40px;
+            margin-right:auto;
+            display: flex;
+        }
+    </style>
 
     <script type="text/javascript">
 
@@ -223,41 +267,22 @@
 
 </head>
 <body>
-<nav class="navbar navbar-default">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed"
-                data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-                aria-expanded="false">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="main.jsp">food reviews 게시판</a>
-    </div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-            <li><a href="/main">메인</a></li>
-            <li><a href="/reviewposts">리뷰 게시판</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle"
-                   data-toggle="dropdown" role="button" aria-haspopup="true"
-                   aria-expanded="false">접속하기<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/login">로그인</a></li>
-                    <li class="active"><a href="/signup">회원가입</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</nav>
+
+<div id="menu">
+    <ul style="background-color: #5F5F5F; display:flex;" >
+        <li id="logo">REVIEW</li>
+        <li><a href="<c:url value='/'/>">홈</a></li>
+        <li><a href="<c:url value='/login'/>">로그인</a></li>
+    </ul>
+</div>
+<br>
+<br>
 <div class="container">
     <div class="col-lg-4"></div>
     <div class="col-lg-4">
         <div class="jumbotron" style="padding-top: 20px;">
             <form method="post" action="/signup">
-                <h3 style="text-align: center;">회원가입 화면</h3>
+                <h3 style="text-align: center;">회원가입</h3>
                 <div class="form-group">
                     <label for="accountID">아이디</label>
                     <input type="text" class="form-control" placeholder="아이디" id="accountID" name="id" maxlength="20">
@@ -269,7 +294,7 @@
                     <div class="check_font" id="pw_check"></div>
                 </div>
                 <div class="form-group">
-                    <label for="accountPassword">비밀번호</label>
+                    <label for="accountPassword">비밀번호 확인</label>
                     <input type="password" class="form-control" placeholder="비밀번호 확인" id="pw_2" name="pw_2" maxlength="20">
                     <div class="check_font" id="pw2_check"></div>
                 </div>
