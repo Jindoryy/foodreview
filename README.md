@@ -10,15 +10,19 @@
 # 주요 내용 :speech_balloon:
 
 1. 홈 화면
+
 ![Home](https://user-images.githubusercontent.com/87755660/188557875-18fe8761-4c7f-44e4-ae53-b8fefa675584.JPG)
 
 2. 로그인 화면
+
 ![image](https://user-images.githubusercontent.com/87755660/188558901-c01b605d-c63c-49c0-9c82-a03fdca32446.png)
 
 3. 회원가입 화면
+
 ![image](https://user-images.githubusercontent.com/87755660/188560239-b437ba2d-eb2c-4af9-af67-72961148eab3.png)
 
 4. 게시판 화면
+
 ![image](https://user-images.githubusercontent.com/87755660/188563558-01c0a5f5-f522-44d6-9c2c-49224bee12f4.png)
 
 
@@ -26,7 +30,7 @@
 
 이진규 - 로그인, 게시판 등록, 수정, 삭제, 페이징, 조건별 검색
 
-- 프로젝트 코드 설명
+- 프로젝트 코드 설명 : 
 <a href="https://velog.io/@tyjk8997">이진규 블로그</a>
   
 엄보성 - 회원가입
